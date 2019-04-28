@@ -1,8 +1,16 @@
 Project title:
+
  GPIO device driver for speed calculation using PIR sensors. 
 
 Summary:
+
 This is a basic implementation of a character device driver which maps the physical address of a GPIO and manipulates the respective bits. Two PIR sensors are positioned at fixed distance (which can be specified when loading the module). When someone (or something) walks in front of any of the two sensors, it is detected as a HIGH output by the PIR sensor connected to the GPIO pins. The time associated with the HIGH output is obtained and speed is then computed dividing the sensors distance by the difference between these two time values.
+
+
+Working:
+When a PIR sensor detects motion, it generates a HIGH signal at the output. The output of the PIR sensor is connected to the GPIO pin. Hence, whenever a motion is detected, a HIGH signal is recieved as an input by the GPIO. This HIGH value is stored in the GPLEV read only register at the corresponding offset which can be read from the kernel space. 
+
+In the project, 2 PIR sensor can be placed at the required distance (in cm) and the value can be given as input by the user. The object should move in the path of the PIR sensors. When the first PIR sensor detects the motion, it sends a HIGH signal at the GPIO. This is noted and the clock time in epoch format (in seconds)is recorded.  The object now moves through the second PIR sensor and the same process is repeated. The speed of the object is calculated using the distance between the PIR sensors and the difference of the time recorded  (in cm/sec). 
 
 Hardware Design:
 
