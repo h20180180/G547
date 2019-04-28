@@ -8,6 +8,7 @@ This is a basic implementation of a character device driver which maps the physi
 
 
 Working:
+
 When a PIR sensor detects motion, it generates a HIGH signal at the output. The output of the PIR sensor is connected to the GPIO pin. Hence, whenever a motion is detected, a HIGH signal is recieved as an input by the GPIO. This HIGH value is stored in the GPLEV read only register at the corresponding offset which can be read from the kernel space. 
 
 In the project, 2 PIR sensor can be placed at the required distance (in cm) and the value can be given as input by the user. The object should move in the path of the PIR sensors. When the first PIR sensor detects the motion, it sends a HIGH signal at the GPIO. This is noted and the clock time in epoch format (in seconds)is recorded.  The object now moves through the second PIR sensor and the same process is repeated. The speed of the object is calculated using the distance between the PIR sensors and the difference of the time recorded  (in cm/sec). 
@@ -30,6 +31,7 @@ The GPIO register information is taken from Broadcom's BCM2835 ARM Peripherals d
 ![WhatsApp Image 2019-04-27 at 11 00 58 PM](https://user-images.githubusercontent.com/47379504/56853207-2c176700-6942-11e9-81d1-839fa59269e9.jpeg)
 
 Firmware and its build process:
+
 1.	The project has been implemented on Raspberry Pi 3 model B V1.2 Raspbian. Communication between the host development system which is the PC and Raspberry Pi is done via Ethernet.  
 2.	Download Raspbian OS to initiate a desktop environment for Raspberry Pi on PC.
 3.	Insert an SD card and use "win32 disk imager" to write the downloaded OS into SD card (Ensure that the SD card has just one partition).
@@ -49,6 +51,7 @@ Password: raspberry
 11.	Now the code can be built and the module can be loaded.
 
 Kernel Space Driver and its build process:
+
 1.	First edit the Makefile specifying the kernel code path. Then do:
 make all
 2.	If you want to revert the compilation, do:
@@ -59,6 +62,7 @@ make all
     sudo rmmod pir.ko
 
 User space application:
+
 1.	Compile the user space file pir-test.c using command
      gcc -o pir-test pir-test.c
 2.	Run it using  command
