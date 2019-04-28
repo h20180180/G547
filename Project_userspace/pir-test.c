@@ -50,25 +50,21 @@ int main()
 			gettimeofday(&tv, NULL); 
 			curtime=tv.tv_sec;    /* getting the current epoch time in seconds*/
 			
-			if (val[0]==2 && t==0)
-			{ 	s = curtime;
-				t=1;
-				printf("PIR2, %lu",s);
-				delay(4000);
-				t=0;
+			if (val[0]==2)    /* Value corresponding to PIR 2 from kernel space*/           
+			{ 	s = curtime;           
+				printf("PIR2, %lu\n",s);
+				delay(4000);         /* PIR sensor has a hardware delay of around 4 seconds to switch from HIGH to LOW*/ 
 			}
-			else if(val[0]==1)
+			else if(val[0]==1)   /* Value corresponding to PIR 1 from kernel space*/ 
 			{ 	r = curtime;
-				t=1;
-				printf("PIR1, %lu",r);
-				delay(4000);
-				t=0;
+				printf("PIR1, %lu\n",r);
+				delay(4000);        /* PIR sensor has a hardware delay of around 4 seconds to switch from HIGH to LOW*/ 
 			}
 			
 			if((r!=0) && (s!=0))
 			{
-				float vel = dis/(s-r);
-				printf("Speed is %f cm/s", vel);
+				float vel = dis/(s-r);  /* distance/ time difference obtained*/
+				printf("Speed is %f cm/s\n", vel);   /* Speed calculation*/
 				r=0;
 				s=0;
 			}
